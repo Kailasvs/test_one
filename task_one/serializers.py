@@ -13,7 +13,7 @@ class HospitalSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class DoctorSerializer(serializers.ModelSerializer):
-    fk_hospital = HospitalSerializer(read_only=True)
+    # fk_hospital = HospitalSerializer(read_only=True)
    
     
     class Meta:
@@ -21,12 +21,12 @@ class DoctorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-    # def to_representation(self, instance):
-    #     rep = super().to_representation(instance)
-    #     if rep['fk_hospital']:
-    #         rep['fk_hospital'] = Hospital.objects.filter(id=rep['fk_hospital']).values('id','name','address','description','location')
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        if rep['fk_hospital']:
+            rep['fk_hospital'] = Hospital.objects.filter(id=rep['fk_hospital']).values('id','name','address','description','location')
         
-    #     return rep
+        return rep
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta :
@@ -48,7 +48,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
-        data['id']=self.user.id
+        data['userid']=self.user.id
         data['username'] = self.user.username
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)

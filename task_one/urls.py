@@ -9,7 +9,7 @@ router.register(r'doctor',DoctorViewSet)
 urlpatterns = [
     path('',include(router.urls)),
     path('register/',RegisterAPI.as_view()),
-    path('api/token/',
+    path('login/',
          MyTokenObtainPairView.as_view(),
          name ='token_obtain_pair'),
     path('api/token/refresh/',

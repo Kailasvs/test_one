@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
   
 
 class RegisterAPI(APIView):
@@ -29,10 +30,13 @@ class DoctorViewSet(viewsets.ModelViewSet):
     """
     A viewset for register and edit user instances.
     """
+    #To access this api you need permission
     serializer_class = DoctorSerializer
     queryset = Doctors.objects.all()
     http_method_names = ['get', 'post', 'put' , 'delete'] 
-    
+    permission_classes=[IsAuthenticated]
+    #please pass access token as bearer token while calling this API
+    #access token will get while login using username and password
    
 
 class MyTokenObtainPairView(TokenObtainPairView):
