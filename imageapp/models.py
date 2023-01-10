@@ -18,3 +18,7 @@ class Photo(models.Model):
         upload_to=image_folder,
        
     )
+    
+    def __str__(self):
+        return self.name
+    

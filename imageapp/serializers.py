@@ -6,3 +6,4 @@ class Photoserializer(serializers.ModelSerializer):
     class Meta :
         model = Photo
         fields='__all__'
+    

@@ -1,6 +1,11 @@
-from django.urls import path
-from . views import PhotAPI
+from django.urls import path,include
+from . views import PhotoViewset
+from rest_framework.routers import DefaultRouter
+
+router=DefaultRouter()
+router.register(r'',PhotoViewset)
+
 
 urlpatterns = [
-    path('',PhotAPI.as_view())
+     path('',include(router.urls)),
 ]
